@@ -7,7 +7,7 @@ const float[4] desired_side_distances;
 const float[4] turning_distances;
 const float gyroscope_control_constant;
 const float distance_proportional_control_constant;
-const int turning_constant;
+const int turning_duration;
 
 // Setup motor
 Adafruit_motorShield AFMS = Adafruit_MotorShield();
@@ -49,3 +49,9 @@ void follow_wall(int current_wall);
 
 // Stop current motors.
 void stop_motors();
+
+// Turn left for a certain duration
+void turn_left();
+
+// Turn right for a certain duration
+void turn_right();

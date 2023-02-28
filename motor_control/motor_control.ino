@@ -23,20 +23,38 @@ std::pair<int, int> follow_wall_motor_speeds(int current_wall) {
 }
 
 void follow_wall(int current_wall) {
-    const std::pair<int, int> motor_speeds = follow_wall_motor_speeds(current_wall, turning);
+    const std::pair<int, int> motor_speeds = follow_wall_motor_speeds(current_wall);
 	LM->setSpeed(abs(motor_speeds.first));
 	RM->setSpeed(abs(motor_speeds.second));
 	if (motor_speeds.first >= 0)
-		LM.run(FORWARD);
+		LM->run(FORWARD);
 	else
-		LM.run(BACKWARD);
+		LM->run(BACKWARD);
 	if (motor_speeds.second >= 0)
-		RM.run(FORWARD);
+		RM->run(FORWARD);
 	else
-		RM.run(BACKWARD);
+		RM->run(BACKWARD);
 }
 
 void stop_motors() {
 	LM->run(RELEASE);
 	RM->run(RELEASE);
+}
+
+void turn_left() {
+	LM->setSpeed(default_motor_speed);
+	RM->setSpeed(default_motor_speed);
+	LM->run(BACKWARD);
+	RM->run(FORWARD);
+	delay(turning_duration);
+	stop_motors();
+}
+
+void turn_right() {
+	LM->setSpeed(default_motor_speed);
+	RM->setSpeed(default_motor_speed);
+	LM->run(FORWARD);
+	RM->run(BACKWARD);
+	delay(turning_duration);
+	stop_motors();
 }
