@@ -3,11 +3,11 @@
 
 // Constant values - adjust for calibration
 const int default_motor_speed;
-const float[4] desired_side_distances;
-const float[4] turning_distances;
-const float gyroscope_control_constant;
-const float distance_proportional_control_constant;
-const int turning_duration;
+const float[4] desired_side_distances = { 100, 100, 100, 100 };
+const float[4] turning_distances = { 100, 100, 100, 100 };
+const float gyroscope_control_constant = 0;
+const float distance_proportional_control_constant = 0;
+const int turning_duration = 1000;
 
 // Setup motor
 Adafruit_motorShield AFMS = Adafruit_MotorShield();
