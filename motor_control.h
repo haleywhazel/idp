@@ -18,29 +18,27 @@ Adafruit_DCMotor *RM = AFMS.getMotor(1); // Adjust based on actual port connecte
 // desired side distance to the wall, increasing if the robot is too far away and
 // decreasing if the robot is too close.
 // Arguments:
-//     float side_distance   : current distance to the side wall
-//     float gyroscope_value : gyroscope value obtained from built in Arduino sensor
+//     float distance_difference : distance difference to side wall
+//     float gyroscope_value     : gyroscope value obtained from built in Arduino sensor
 // Output:
 //     int                   : required left motor speed
-int follow_wall_left_motor_speed(float side_distance, float gyroscope_value);
+int follow_wall_left_motor_speed(float distance_difference, float gyroscope_value);
 
 // Returns the adjusted right motor speed based on sensor readings. If the robot
 // should turn, an additional adjustment is added.
 // Arguments:
-//     int turning           : 1 = turning left, 0 = not turning, -1 = turning right
-//     float gyroscope_value : gyroscope value obtained from built in Arduino sensor
+//     float gyroscope_value    : gyroscope value obtained from built in Arduino sensor
 // Output:
-//     int                   : required right motor speed
-int follow_wall_right_motor_speed(int turning, float gyroscope_value, int current_wall);
+//     int                      : required right motor speed
+int follow_wall_right_motor_speed(float gyroscope_value);
 
 // Obtains sensor readings using methods in sensor.h and returns an std::pair of
 // required left and right motor values.
 // Arguments:
-//     int current_wall      : current wall based on decided label values
-//     int turning           : 1 = turning left, 0 = not turning, -1 = turning right
+//     int current_wall         : current wall based on decided label values
 // Output:
 //     std::pair<int, int>   : motor speeds, pair.first = left, pair.second = right
-std::pair<int, int> follow_wall_motor_speeds(int current_wall, int turning);
+std::pair<int, int> follow_wall_motor_speeds(int current_wall);
 
 // Set current motor speeds based on wall to follow
 // Arguments:
