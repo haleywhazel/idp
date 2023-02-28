@@ -23,3 +23,16 @@ std::pair<int, int> adjusted_motor_speeds(int current_wall, int turning) {
 
 	return std::make_pair(left_motor, right_motor);
 }
+
+void set_motors(int current_wall, int turning) {
+    const std::pair<int, int> motor_speeds = adjusted_motor_speeds(current_wall, turning);
+    LM->setSpeed(motor_speeds.first);
+	RM->setSpeed(motor_speeds.second);
+	LM->run(FORWARD);
+	RM->run(FORWARD);
+}
+
+void stop_motors() {
+	LM->run(RELEASE);
+	RM->run(RELEASE);
+}
