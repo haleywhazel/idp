@@ -22,7 +22,7 @@ Adafruit_DCMotor *RM = AFMS.getMotor(1); // Adjust based on actual port connecte
 //     float gyroscope_value : gyroscope value obtained from built in Arduino sensor
 // Output:
 //     int                   : required left motor speed
-int adjusted_left_motor_speed(float side_distance, float gyroscope_value);
+int follow_wall_left_motor_speed(float side_distance, float gyroscope_value);
 
 // Returns the adjusted right motor speed based on sensor readings. If the robot
 // should turn, an additional adjustment is added.
@@ -31,7 +31,7 @@ int adjusted_left_motor_speed(float side_distance, float gyroscope_value);
 //     float gyroscope_value : gyroscope value obtained from built in Arduino sensor
 // Output:
 //     int                   : required right motor speed
-int adjusted_right_motor_speed(int turning, float gyroscope_value, int current_wall);
+int follow_wall_right_motor_speed(int turning, float gyroscope_value, int current_wall);
 
 // Obtains sensor readings using methods in sensor.h and returns an std::pair of
 // required left and right motor values.
@@ -40,12 +40,14 @@ int adjusted_right_motor_speed(int turning, float gyroscope_value, int current_w
 //     int turning           : 1 = turning left, 0 = not turning, -1 = turning right
 // Output:
 //     std::pair<int, int>   : motor speeds, pair.first = left, pair.second = right
-std::pair<int, int> adjusted_motor_speeds(int current_wall, int turning);
+std::pair<int, int> follow_wall_motor_speeds(int current_wall, int turning);
 
-// Set current motor speeds.
+// Set current motor speeds based on wall to follow
 // Arguments:
 //     int current_wall      : current wall based on decided label values
-//     int turning           : 1 = turning left, 0 = not turning, -1 = turning right
 // Output:
 //     None
-void set_motors(int current_wall, int turning);
+void follow_wall(int current_wall);
+
+// Stop current motors.
+void stop_motors();

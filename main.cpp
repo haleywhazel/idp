@@ -1,7 +1,9 @@
+#include "wrapper.h"
+
 void setup() {
     initial_setup();
 }
 
 void loop() {
-    loop();
+    main_loop();
 }
