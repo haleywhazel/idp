@@ -12,6 +12,7 @@ void initial_setup() {
 void main_loop() {
     while (distance_front < turning_distances[current_wall]) {
         follow_wall(current_wall);
+        delay(50);
     }
     turn_left();
     current_wall++;
