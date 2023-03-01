@@ -3,7 +3,7 @@
 
 // Constant values - adjust for calibration
 const int default_motor_speed;
-const float[4] desired_side_distances = { 100, 100, 100, 100 };
+const float[4] desired_side_distances = { 50, 50, 50, 50 };
 const float[4] turning_distances = { 100, 100, 100, 100 };
 const float gyroscope_control_constant = 0;
 const float distance_proportional_control_constant = 0;
@@ -55,3 +55,10 @@ void turn_left();
 
 // Turn right for a certain duration
 void turn_right();
+
+// Move forwards for a certain duration
+// Arguments:
+//     int duration          : duration to move forwards (milliseconds)
+// Output:
+//     NOne
+void move_forwards(int duration);

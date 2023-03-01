@@ -58,3 +58,12 @@ void turn_right() {
 	delay(turning_duration);
 	stop_motors();
 }
+
+void move_forwards(int duration) {
+	LM->setSpeed(default_motor_speed);
+	RM->setSpeed(default_motor_speed);
+	LM->run(FORWARD);
+	RM->run(FORWARD);
+	delay(duration);
+	stop_motors();
+}
