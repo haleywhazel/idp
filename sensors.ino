@@ -1,9 +1,9 @@
 #include "sensors.h"
 
 void sensors_setup() {
-	pinMode(front_ultrasound_trig, OUTPUT);
+	// pinMode(front_ultrasound_trig, OUTPUT);
 	pinMode(right_ultrasound_trig, OUTPUT);
-	pinMode(front_ultrasound_echo, INPUT);
+	// pinMode(front_ultrasound_echo, INPUT);
 	pinMode(right_ultrasound_echo, INPUT);
 }
 
@@ -11,10 +11,10 @@ float convert_ultrasound_sensor(float input) {
 	return input;
 }
 
-bool is_block_blue() {
-	float input; // TODO: obtain from sensors
-	return input > colour_reading_threshold;
-}
+// bool is_block_blue() {
+// 	float input; // TODO: obtain from sensors
+// 	return input > colour_reading_threshold;
+// }
 
 float distance_from_ultrasound(bool front) {
 	int trig;

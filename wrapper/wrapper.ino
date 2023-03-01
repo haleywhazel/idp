@@ -15,5 +15,6 @@ void main_loop() {
         delay(50);
     }
     turn_left();
-    current_wall++;
+    stop_motors();
+    //current_wall++;
 }

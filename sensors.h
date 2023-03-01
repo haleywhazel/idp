@@ -1,8 +1,12 @@
+
+#ifndef SENSOR_CONSTS
+#define SENSOR_CONSTS
 const float colour_reading_threshold;
 const int front_ultrasound_trig;
 const int front_ultrasound_echo;
 const int right_ultrasound_trig;
 const int right_ultrasound_echo;
+#endif
 
 // Sensors setup - run in void setup() to set parameters for the sensors
 void sensors_setup();

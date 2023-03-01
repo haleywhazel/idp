@@ -10,7 +10,7 @@ int follow_wall_right_motor_speed(float gyroscope_value) {
 	return default_motor_speed + static_cast<int>(gyroscope_value * gyroscope_control_constant);
 }
 
-std::pair<int, int> follow_wall_motor_speeds(int current_wall) {
+MotorSpeeds follow_wall_motor_speeds(int current_wall) {
 	// TODO: obtain values from functions used in sensor.h
 	const float side_distance = distance_right();
 	const float gyroscope_value;
@@ -19,18 +19,18 @@ std::pair<int, int> follow_wall_motor_speeds(int current_wall) {
 	const int left_motor = follow_wall_left_motor_speed(distance_difference, gyroscope_value);
 	const int right_motor = follow_wall_right_motor_speed(gyroscope_value);
 
-	return std::make_pair(left_motor, right_motor);
+	return MotorSpeeds { left_motor, right_motor };
 }
 
 void follow_wall(int current_wall) {
-    const std::pair<int, int> motor_speeds = follow_wall_motor_speeds(current_wall);
-	LM->setSpeed(abs(motor_speeds.first));
-	RM->setSpeed(abs(motor_speeds.second));
-	if (motor_speeds.first >= 0)
+    const MotorSpeeds motor_speeds = follow_wall_motor_speeds(current_wall);
+	LM->setSpeed(abs(motor_speeds.left_motor));
+	RM->setSpeed(abs(motor_speeds.right_motor));
+	if (motor_speeds.left_motor >= 0)
 		LM->run(FORWARD);
 	else
 		LM->run(BACKWARD);
-	if (motor_speeds.second >= 0)
+	if (motor_speeds.right_motor >= 0)
 		RM->run(FORWARD);
 	else
 		RM->run(BACKWARD);
