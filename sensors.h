@@ -11,6 +11,12 @@ const int button_in = 12;
 const int button_vcc = 13;
 #endif
 
+#ifndef SENSOR_VARS
+#define SENSOR_VARS
+float current_front_distance = 300;
+float current_side_distance = 100;
+#endif
+
 // Sensors setup - run in void setup() to set parameters for the sensors
 void sensors_setup();
 
@@ -41,27 +47,3 @@ float distance_front();
 // Output:
 //     float       : distance reading in millimetres
 float distance_right();
-
-
-/*
-INCLUDE FOLLOWING AS NEEDED
-// Convert readings from the 80cm distance sensor to an expected distance value based
-// on measured readings.
-// Arguments:
-//     float input : sensor reading input
-//     bool far    : in the cases where two values are possible, whether or not to 
-//                   return the farther value (default false, returns closer value)
-// Output:
-//     float       : current distance value
-float convert_80cm_distance_sensor(float input, bool far);
-
-// Convert readings from the 150cm distance sensor to an expected distance value
-// based on measured readings.
-// Arguments:
-//     float input : sensor reading input
-//     bool far    : in the cases where two values are possible, whether or not to 
-//                   return the farther value (default false, returns closer value)
-// Output:
-//     float       : current distance value
-float convert_150cm_distance_sensor(float input, bool far);
-*/

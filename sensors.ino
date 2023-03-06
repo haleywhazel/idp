@@ -37,7 +37,17 @@ float distance_from_ultrasound(bool front) {
 	delayMicroseconds(10);
 	digitalWrite(trig, LOW);
 	const int duration = pulseIn(echo, HIGH);
-	return static_cast<float>(duration) / 5.8;
+	const float measured_distance = static_cast<float>(duration) / 5.8;
+	if (front) {
+		if (measured_distance >= 0.0)
+			current_front_distance = measured_distance;
+		return current_front_distance;
+	}
+	else {
+		if (measured_distance >= 0.0)
+			current_side_distance = measured_distance;
+		return current_side_distance;
+	}
 }
 
 float distance_front() {
@@ -47,18 +57,3 @@ float distance_front() {
 float distance_right() {
 	return distance_from_ultrasound(false);
 }
-
-
-/*
-INCLUDE FOLLOWING AS NEEDED
-
-float convert_80cm_distance_sensor(float input, bool far = false) {
-	float output;
-	return output;
-}
-
-float convert_150cm_distance_sensor(float input, bool far = false) {
-	float output;
-	return output;
-}
-*/
