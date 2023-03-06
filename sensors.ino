@@ -1,10 +1,16 @@
 #include "sensors.h"
 
 void sensors_setup() {
-	// pinMode(front_ultrasound_trig, OUTPUT);
+	pinMode(front_ultrasound_trig, OUTPUT);
 	pinMode(right_ultrasound_trig, OUTPUT);
-	// pinMode(front_ultrasound_echo, INPUT);
+	pinMode(front_ultrasound_echo, INPUT);
 	pinMode(right_ultrasound_echo, INPUT);
+	pinMode(ultrasonic_vcc, OUTPUT);
+	pinMode(button_in, INPUT);
+	pinMode(button_vcc, OUTPUT);
+
+	digitalWrite(button_vcc, HIGH);
+	digitalWrite(ultrasonic_vcc, HIGH);
 }
 
 float convert_ultrasound_sensor(float input) {
