@@ -4,11 +4,11 @@
 // Constant values - adjust for calibration
 #ifndef MOTOR_CONSTS
 #define MOTOR_CONSTS
-const int default_motor_speed;
-const float desired_side_distances[4] = { 50, 50, 50, 50 };
+const int default_motor_speed = 150;
+const float desired_side_distances[4] = { 100, 100, 100, 100 };
 const float turning_distances[4] = { 100, 100, 100, 100 };
 const float gyroscope_control_constant = 0;
-const float distance_proportional_control_constant = 0;
+const float distance_proportional_control_constant = 0.5;
 const int turning_duration = 1000;
 #endif
 // Setup motor
@@ -16,8 +16,8 @@ const int turning_duration = 1000;
 #ifndef MOTOR_SHIELD
 #define MOTOR_SHIELD
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
-Adafruit_DCMotor *LM = AFMS.getMotor(2); // Adjust based on actual port connected
-Adafruit_DCMotor *RM = AFMS.getMotor(1); // Adjust based on actual port connected
+Adafruit_DCMotor *LM = AFMS.getMotor(4); // Adjust based on actual port connected
+Adafruit_DCMotor *RM = AFMS.getMotor(3); // Adjust based on actual port connected
 #endif
 // Returns the adjusted left motor speed based on sensor readings to keep a certain
 // desired side distance to the wall, increasing if the robot is too far away and

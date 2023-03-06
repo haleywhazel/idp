@@ -13,19 +13,25 @@ int follow_wall_right_motor_speed(float gyroscope_value) {
 MotorSpeeds follow_wall_motor_speeds(int current_wall) {
 	// TODO: obtain values from functions used in sensor.h
 	const float side_distance = distance_right();
+	Serial.print("side distance: ");
+	Serial.println(side_distance);
 	const float gyroscope_value;
 	const float distance_difference = side_distance - desired_side_distances[current_wall];
 
 	const int left_motor = follow_wall_left_motor_speed(distance_difference, gyroscope_value);
 	const int right_motor = follow_wall_right_motor_speed(gyroscope_value);
-
+	Serial.print("motor speeds: ");
+	Serial.println(left_motor);
+	Serial.println(right_motor);
 	return MotorSpeeds { left_motor, right_motor };
 }
 
 void follow_wall(int current_wall) {
     const MotorSpeeds motor_speeds = follow_wall_motor_speeds(current_wall);
+
 	LM->setSpeed(abs(motor_speeds.left_motor));
 	RM->setSpeed(abs(motor_speeds.right_motor));
+
 	if (motor_speeds.left_motor >= 0)
 		LM->run(FORWARD);
 	else

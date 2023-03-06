@@ -4,8 +4,8 @@
 const float colour_reading_threshold;
 const int front_ultrasound_trig;
 const int front_ultrasound_echo;
-const int right_ultrasound_trig;
-const int right_ultrasound_echo;
+const int right_ultrasound_trig = 10;
+const int right_ultrasound_echo = 9;
 #endif
 
 // Sensors setup - run in void setup() to set parameters for the sensors
