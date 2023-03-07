@@ -5,13 +5,15 @@
 // Constant values - adjust for calibration
 #ifndef MOTOR_CONSTS
 #define MOTOR_CONSTS
-const int default_motor_speed = 150;
-const float desired_side_distances[4] = { 100, 100, 100, 100 };
+const float default_motor_speed = 0.7;
+const float desired_side_distances[4] = { 425, 180, 180, 180 };
 const float turning_distances[4] = { 100, 100, 100, 100 };
 const float gyroscope_control_constant = 0;
-const float distance_proportional_control_constant = 0.5;
+const float proportional_constant = 0.001;
+const float integral_constant;
 const int turning_duration = 1000;
 const int servo_sig;
+const float difference_tolerance = 50;
 #endif
 // Setup motor
 
@@ -21,7 +23,6 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *LM = AFMS.getMotor(4); // Adjust based on actual port connected
 Adafruit_DCMotor *RM = AFMS.getMotor(3); // Adjust based on actual port connected
 Servo servo;
-servo.attach(servo_sig);
 #endif
 // Returns the adjusted left motor speed based on sensor readings to keep a certain
 // desired side distance to the wall, increasing if the robot is too far away and
@@ -39,7 +40,7 @@ int follow_wall_left_motor_speed(float distance_difference, float gyroscope_valu
 //     float gyroscope_value    : gyroscope value obtained from built in Arduino sensor
 // Output:
 //     int                      : required right motor speed
-int follow_wall_right_motor_speed(float gyroscope_value);
+int follow_wall_right_motor_speed(float distance_difference, float gyroscope_value);
 
 #ifndef MS_H
 #define MS_H
@@ -63,6 +64,8 @@ MotorSpeeds follow_wall_motor_speeds(int current_wall);
 // Output:
 //     None
 void follow_wall(int current_wall);
+
+void normal_orientation(unsigned long t, int current_wall);
 
 // Stop current motors.
 void stop_motors();
