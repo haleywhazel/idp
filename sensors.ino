@@ -1,59 +1,57 @@
 #include "sensors.h"
 
-void sensors_setup() {
-	pinMode(front_ultrasound_trig, OUTPUT);
-	pinMode(right_ultrasound_trig, OUTPUT);
-	pinMode(front_ultrasound_echo, INPUT);
-	pinMode(right_ultrasound_echo, INPUT);
-	pinMode(ultrasonic_vcc, OUTPUT);
-	pinMode(button_in, INPUT);
+void Sensors::setup() {
+	pinMode(ultrasound_trig, OUTPUT);
+	pinMode(ultrasound_echo, INPUT);
+	pinMode(digital_vcc, OUTPUT);
+	pinMode(button, INPUT);
 	pinMode(button_vcc, OUTPUT);
+	pinMode(ir_1, INPUT);
+	pinMode(ir_2, INPUT);
 
 	digitalWrite(button_vcc, HIGH);
-	digitalWrite(ultrasonic_vcc, HIGH);
+	digitalWrite(digital_vcc, HIGH);
 }
 
-float convert_ultrasound_sensor(float input) {
-	return input;
+void sort(int a[], int size) {
+    for(int i=0; i<(size-1); i++) {
+        bool flag = true;
+        for(int o=0; o<(size-(i+1)); o++) {
+            if(a[o] > a[o+1]) {
+                int t = a[o];
+                a[o] = a[o+1];
+                a[o+1] = t;
+                flag = false;
+            }
+        }
+        if (flag) break;
+    }
 }
 
-// bool is_block_blue() {
-// 	float input; // TODO: obtain from sensors
-// 	return input > colour_reading_threshold;
-// }
-
-float distance_from_ultrasound(bool front) {
-	int trig;
-	int echo;
-	if (front) {
-		trig = front_ultrasound_trig;
-		echo = front_ultrasound_echo;
-	}
-	else {
-		trig = right_ultrasound_trig;
-		echo = right_ultrasound_echo;
-	}
-	digitalWrite(trig, HIGH);
+float Sensors::front_ultrasonic() {
+	digitalWrite(ultrasound_trig, HIGH);
 	delayMicroseconds(10);
-	digitalWrite(trig, LOW);
-	const int duration = pulseIn(echo, HIGH);
-	const float measured_distance = static_cast<float>(duration) / 5.8;
-	if (front) {
-		if (measured_distance >= 0.0)
-			current_front_distance = measured_distance;
-		return current_front_distance;
-	}
-	else {
-		if (measured_distance >= 0.0)
-			current_side_distance = measured_distance;
-		return current_side_distance;
-	}
+	digitalWrite(ultrasound_trig, LOW);
+
+	int duration = pulseIn(ultrasound_echo, HIGH);
+	float reading = duration / 5.8;
+	return reading;
 }
 
-float distance_front() {
-	return distance_from_ultrasound(true);
+float Sensors::read_ir(uint8_t pin) {
+	const int sample_size = 25;
+	int readings[sample_size];
+	for (int r = 0; r < sample_size; r++) {
+		readings[r] = analogRead(ir_1);
+		delay(1);
+	}
+	sort(readings, sample_size);
+	int median = readings[(sample_size - 1) / 2];
+	
+  	float reading = 60.374 * pow(map(median, 0, 1023, 0, 5000)/1000.0, -1.16);
+	return reading;
 }
 
-float distance_right() {
-	return distance_from_ultrasound(false);
+bool Sensors::block_blue() {
+	return true;
 }
