@@ -7,6 +7,10 @@ void Robot::setup() {
     Motors m;
     m.setup();
 
+    // flashing LED
+    pinMode(11, OUTPUT);
+    digitalWrite(11, HIGH);
+
     MotorSpeeds ms;
     ms.left_motor = 0;
     ms.right_motor = 0;
@@ -35,8 +39,6 @@ void Robot::update_orientation() {
     float theta = atan((ir2_cm - ir1_cm) / ir_offset);
     float sd = ir1_cm * cos(theta);
     float fd = uf * cos(theta);
-
-    Serial.println(theta);
 
     Orientation o;
     o.angle_from_side = (theta * ema_k) + (orientation.angle_from_side * (1 - ema_k));
@@ -77,6 +79,9 @@ void Robot::set_speed() {
 
     float rms = (proportional_k * delta_side) + default_speed;
     float lms = default_speed;
+
+    Serial.println(rms);
+    Serial.println(lms);
 
     motors.run_right(rms);
     motors.run_left(lms);

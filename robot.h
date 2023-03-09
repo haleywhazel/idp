@@ -27,10 +27,11 @@ class Robot {
         void update_orientation();
         void set_speed();
         MotorSpeeds current_speed;
+        Motors motors;
 
     private:
         // Sensors sensors;
-        Motors motors;
+        // Motors motors;
         //MotorSpeeds current_speed;
         Orientation desired_orientation();
 };

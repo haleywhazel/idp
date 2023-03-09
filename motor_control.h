@@ -11,10 +11,15 @@ class Motors {
 		void move_servo(int position);
 		void stop_motors();
 
-	private:
 		Adafruit_MotorShield shield;
-		Adafruit_DCMotor *left_motor;
-		Adafruit_DCMotor *right_motor;
+		//Adafruit_DCMotor *left_motor;
+		//Adafruit_DCMotor *right_motor;
 		Servo servo;
+
+	private:
+		// Adafruit_MotorShield shield;
+		// Adafruit_DCMotor *left_motor;
+		// Adafruit_DCMotor *right_motor;
+		// Servo servo;
 };
 #endif
