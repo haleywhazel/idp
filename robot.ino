@@ -32,18 +32,28 @@ void Robot::setup() {
 }
 
 void Robot::update_orientation() {
-    float uf = sensors.front_ultrasonic();
     float ir1_cm = sensors.read_ir(ir_1);
     float ir2_cm = sensors.read_ir(ir_2);
 
     float theta = atan((ir2_cm - ir1_cm) / ir_offset);
     float sd = ir1_cm * cos(theta);
-    float fd = uf * cos(theta);
 
     Orientation o;
     o.angle_from_side = (theta * ema_k) + (orientation.angle_from_side * (1 - ema_k));
-    o.distance_from_front = fd;
     o.distance_from_side = (sd * ema_k) + (orientation.distance_from_side * (1 - ema_k));
+
+    float pu = orientation.distance_from_front;
+    float uf;
+    for(int i = 0; i < 10; i++) {
+        uf = sensors.front_ultrasonic();
+        if ((pu > 5) && ((pu - uf) / pu) < 10) {
+            o.distance_from_front = uf * cos(theta);
+            break;
+        } else if (pu <= 5) {
+            o.distance_from_front = uf * cos(theta);
+            break;
+        }
+    }
     
     orientation = o;
 }
@@ -77,11 +87,8 @@ void Robot::set_speed() {
     float delta_side = desired.distance_from_side - orientation.distance_from_side;
     float delta_theta = desired.angle_from_side - orientation.angle_from_side;
 
-    float rms = (proportional_k * delta_side) + default_speed;
-    float lms = default_speed;
-
-    Serial.println(rms);
-    Serial.println(lms);
+    float lms = default_speed - (proportional_k * delta_side);
+    float rms = default_speed + (proportional_k * delta_side);
 
     motors.run_right(rms);
     motors.run_left(lms);
