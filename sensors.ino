@@ -1,27 +1,36 @@
 #include "sensors.h"
 
-void sensors_setup() {
+void sensors_setup()
+{
+  /*
 	pinMode(front_ultrasound_trig, OUTPUT);
 	pinMode(right_ultrasound_trig, OUTPUT);
 	pinMode(front_ultrasound_echo, INPUT);
 	pinMode(right_ultrasound_echo, INPUT);
 	pinMode(ultrasonic_vcc, OUTPUT);
 	pinMode(button_in, INPUT);
-	pinMode(button_vcc, OUTPUT);
+	pinMode(button_vcc, OUTPUT);*/
 
-	digitalWrite(button_vcc, HIGH);
-	digitalWrite(ultrasonic_vcc, HIGH);
+	//digitalWrite(button_vcc, HIGH);
+	//digitalWrite(ultrasonic_vcc, HIGH);
 }
 
-float convert_ultrasound_sensor(float input) {
-	return input;
+bool is_block_blue()
+{
+  return true;
 }
 
-// bool is_block_blue() {
-// 	float input; // TODO: obtain from sensors
-// 	return input > colour_reading_threshold;
-// }
+int line_sensor()
+{
+  return 0;
+}
 
+void wait_until_line_sensor_is(int value)
+{
+  while (line_sensor() != value)
+    delay(LINE_FOLLOWING_TIME_DELAY);
+}
+/*
 float distance_from_ultrasound(bool front) {
 	int trig;
 	int echo;
@@ -56,4 +65,4 @@ float distance_front() {
 
 float distance_right() {
 	return distance_from_ultrasound(false);
-}
+}*/

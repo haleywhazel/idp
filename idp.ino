@@ -1,12 +1,13 @@
-// #include "wrapper.h"
-#include "motor_control.h"
+#include "line_following.h"
 #include "sensors.h"
-#include "wrapper.h"
 
 void setup() {
-    initial_setup();
+  sensors_setup();
+  move_from_start();
 }
 
 void loop() {
-    main_loop();
+  // State Variable
+  // 0 - main following loop, 1 - turning to grab block, 2 - placing block
+  int state = 0;
 }
