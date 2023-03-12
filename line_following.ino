@@ -40,6 +40,20 @@ void stop_motors()
 
 void move_from_start()
 {
+  move_forwards();
+
+  wait_until_line_sensor_is(15);//1111
+  wait_until_line_sensor_is(0);//0000
+  wait_until_line_sensor_is(15);//1111
+
+  turn_right();
+
+  wait_until_line_sensor_is(3);//0011
+
+  move_forwards();
+
+  wait_until_line_sensor_is(0);//0000
+
   return;
 }
 
@@ -58,7 +72,7 @@ int follow_line()
     case 2://0010
       move_forwards(DEFAULT_MOTOR_SPEED, INCREASED_MOTOR_SPEED);
       break;
-    case 15://1111
+    case 12://1100
       return 1;
     case 3://0011
       return 2;
@@ -117,5 +131,11 @@ void place_block()
 
   move_forwards();
   
+  wait_until_line_sensor_is(0);//0000
+}
+
+void skip_junction()
+{
+  move_forwards();
   wait_until_line_sensor_is(0);//0000
 }

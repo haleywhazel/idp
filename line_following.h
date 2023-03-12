@@ -26,3 +26,6 @@ bool grab_block();
 
 // Places block
 void place_block();
+
+// Skips junction
+void skip_junction();

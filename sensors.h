@@ -1,8 +1,12 @@
+#include "constants.h"
+
 void sensors_setup();
+
+void wait_for_button_press();
 
 bool is_block_blue();
 
-float distance_from_ultrasound(bool front);
+//float distance_from_ultrasound(bool front);
 
 // 0000: 0
 // 0100: 4
