@@ -4,9 +4,9 @@
 #include "constants.h"
 #include "sensors.h"
 
-void move_forwards(int LM_speed, int RM_speed);
+void move_forwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_MOTOR_SPEED);
 
-void move_backwards(int LM_speed, int RM_speed);
+void move_backwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_MOTOR_SPEED);
 
 void stop_motors();
 

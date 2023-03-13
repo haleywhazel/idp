@@ -41,18 +41,23 @@ void stop_motors()
 void move_from_start()
 {
   move_forwards();
-
   wait_until_line_sensor_is(15);//1111
-  wait_until_line_sensor_is(0);//0000
+  delay(200);
   wait_until_line_sensor_is(15);//1111
 
   turn_right();
 
-  wait_until_line_sensor_is(3);//0011
+  while (digitalRead(LINE_SENSOR_PINS[2]) || digitalRead(LINE_SENSOR_PINS[3]))
+    delay(LINE_FOLLOWING_TIME_DELAY);
+
+  delay(600);
+  stop_motors();
+  delay(2000);
 
   move_forwards();
+  delay(100);
 
-  wait_until_line_sensor_is(0);//0000
+  //wait_until_line_sensor_is(0);//0000
 
   return;
 }
@@ -67,10 +72,10 @@ int follow_line()
       move_forwards();
       break;
     case 4://0100
-      move_forwards(INCREASED_MOTOR_SPEED, DEFAULT_MOTOR_SPEED);
+      move_forwards(DECREASED_MOTOR_SPEED, DEFAULT_MOTOR_SPEED);
       break;
     case 2://0010
-      move_forwards(DEFAULT_MOTOR_SPEED, INCREASED_MOTOR_SPEED);
+      move_forwards(DEFAULT_MOTOR_SPEED, DECREASED_MOTOR_SPEED);
       break;
     case 12://1100
       return 1;

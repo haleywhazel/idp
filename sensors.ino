@@ -3,8 +3,13 @@
 void sensors_setup()
 {
 	for (int pin : LINE_SENSOR_PINS)
-		pinmode(pin, INPUT);
+		pinMode(pin, INPUT);
 
+  pinMode(BUTTON_PIN, INPUT);
+  pinMode(VCC, OUTPUT);
+  digitalWrite(VCC, HIGH);
+  pinMode(ASTABLE_PIN, OUTPUT);
+  
   /*
 	pinMode(front_ultrasound_trig, OUTPUT);
 	pinMode(right_ultrasound_trig, OUTPUT);
@@ -12,8 +17,8 @@ void sensors_setup()
 	pinMode(right_ultrasound_echo, INPUT);
 	pinMode(ultrasonic_vcc, OUTPUT);
 
-	pinMode(BUTTON_PIN, INPUT);
 	pinMode(COLOUR_SENSOR_PIN, INPUT);
+  pinMode(BROWN_SENSOR_PIN, INPUT);
 	//pinMode(BUTTON_PIN, HIGH);
 
 	pinMode(VCC, OUTPUT);
@@ -36,10 +41,10 @@ bool is_block_blue()
 
 int line_sensor()
 {
-	int sum = 0;
-	for (int i = 0; i <= 4; ++i)
-	  sum += digitalRead(BUTTON_PIN) * pow(2, i);
-	return sum;
+	return digitalRead(LINE_SENSOR_PINS[0]) * 1 +
+	       digitalRead(LINE_SENSOR_PINS[1]) * 2 +
+	       digitalRead(LINE_SENSOR_PINS[2]) * 4 +
+	       digitalRead(LINE_SENSOR_PINS[3]) * 8;
 }
 
 void wait_until_line_sensor_is(int value)
