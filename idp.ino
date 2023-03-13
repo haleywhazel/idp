@@ -8,7 +8,7 @@ void setup() {
   Serial.println("Ready");
   wait_for_button_press();
   Serial.println("Go");
-  move_from_start();
+  //move_from_start();
 }
 
 void loop() {

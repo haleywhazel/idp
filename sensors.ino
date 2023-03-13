@@ -47,6 +47,11 @@ int line_sensor()
 	       digitalRead(LINE_SENSOR_PINS[3]) * 8;
 }
 
+int line_sensor_readings(int i)
+{
+  return digitalRead(LINE_SENSOR_PINS[i]);
+}
+
 void wait_until_line_sensor_is(int value)
 {
   while (line_sensor() != value)

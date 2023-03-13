@@ -16,6 +16,22 @@ void move_backwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_M
   RM->run(BACKWARD);
 }
 
+void adjust_left()
+{
+  LM->setSpeed(DECREASED_MOTOR_SPEED / 2);
+  RM->setSpeed(DECREASED_MOTOR_SPEED);
+  LM->run(FORWARD);
+  RM->run(FORWARD);
+}
+
+void adjust_right()
+{
+  LM->setSpeed(DECREASED_MOTOR_SPEED);
+  RM->setSpeed(DECREASED_MOTOR_SPEED / 2);
+  LM->run(FORWARD);
+  RM->run(FORWARD);
+}
+
 void turn_left()
 {
   LM->setSpeed(DEFAULT_MOTOR_SPEED);
@@ -47,41 +63,35 @@ void move_from_start()
 
   turn_right();
 
+  
   while (digitalRead(LINE_SENSOR_PINS[2]) || digitalRead(LINE_SENSOR_PINS[3]))
     delay(LINE_FOLLOWING_TIME_DELAY);
 
-  delay(600);
-  stop_motors();
-  delay(2000);
+  delay(500);
 
   move_forwards();
   delay(100);
 
+  
+  //wait_until_line_sensor_is(3);//0011
+  
   //wait_until_line_sensor_is(0);//0000
 
-  return;
 }
 
 int follow_line()
 {
-  const int line_sensor_readings = line_sensor();
+  int readings[4];
+  
+  for (int i = 0; i < 4; ++i)
+    readings[i] = line_sensor_readings(i);
 
-  switch (line_sensor_readings)
-  {
-    case 0://0000
-      move_forwards();
-      break;
-    case 4://0100
-      move_forwards(DECREASED_MOTOR_SPEED, DEFAULT_MOTOR_SPEED);
-      break;
-    case 2://0010
-      move_forwards(DEFAULT_MOTOR_SPEED, DECREASED_MOTOR_SPEED);
-      break;
-    case 12://1100
-      return 1;
-    case 3://0011
-      return 2;
-  }
+  if (readings[1] == 1) //xx1x
+    adjust_right();
+  else if (readings[2] == 1) //x1xx
+    adjust_left();
+  else
+    move_forwards();
   
   return 0;
 }

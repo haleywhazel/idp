@@ -17,4 +17,6 @@ bool is_block_blue();
 // 1111: 15
 int line_sensor();
 
+int line_sensor_readings(int i);
+
 void wait_until_line_sensor_is(int value);

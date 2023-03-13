@@ -10,6 +10,9 @@ void move_backwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_M
 
 void stop_motors();
 
+void adjust_left();
+void adjust_right();
+
 // Turn left for a certain duration
 void turn_left();
 
