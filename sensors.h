@@ -20,3 +20,5 @@ int line_sensor(int i);
 void wait_until_line_sensor_on(int i);
 
 void wait_until_line_sensor_sum_is(int value);
+
+void wait_until_all_sensors_have_detected_line();

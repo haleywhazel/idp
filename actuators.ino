@@ -30,41 +30,48 @@ void move_backwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_M
   RM->setSpeed(RM_speed);
   LM->run(BACKWARD);
   RM->run(BACKWARD);
+  delay(50);
 }
 
 void adjust_left()
 {
   digitalWrite(ASTABLE_PIN, HIGH);
-  LM->setSpeed(DEFAULT_MOTOR_SPEED - MOTOR_SPEED_DIFFERENCE);
+  LM->setSpeed(50);
   RM->setSpeed(DEFAULT_MOTOR_SPEED);
-  LM->run(FORWARD);
+  LM->run(RELEASE);
   RM->run(FORWARD);
+  delay(50);
 }
 
 void adjust_right()
 {
   digitalWrite(ASTABLE_PIN, HIGH);
   LM->setSpeed(DEFAULT_MOTOR_SPEED);
-  RM->setSpeed(DEFAULT_MOTOR_SPEED - MOTOR_SPEED_DIFFERENCE);
+  RM->setSpeed(50);
   LM->run(FORWARD);
-  RM->run(FORWARD);
+  RM->run(RELEASE);
 }
 
 void turn_left()
 {
   digitalWrite(ASTABLE_PIN, HIGH);
-  LM->setSpeed(DEFAULT_MOTOR_SPEED - MOTOR_SPEED_DIFFERENCE);
+  LM->setSpeed(DEFAULT_MOTOR_SPEED);
   RM->setSpeed(DEFAULT_MOTOR_SPEED);
+  //LM->run(BACKWARD);
+  //RM->run(FORWARD);
   LM->run(FORWARD);
-  RM->run(FORWARD);
+  RM->run(BACKWARD);
 }
 
 void turn_right()
 {
+  digitalWrite(ASTABLE_PIN, HIGH);
   LM->setSpeed(DEFAULT_MOTOR_SPEED);
   RM->setSpeed(DEFAULT_MOTOR_SPEED);
-  LM->run(FORWARD);
-  RM->run(BACKWARD);
+  //LM->run(FORWARD);
+  //RM->run(BACKWARD);
+  LM->run(BACKWARD);
+  RM->run(FORWARD);
 }
 
 void stop_motors()

@@ -13,33 +13,25 @@ void loop() {
   // State Variable
   // 0 - main following loop, 1 - turning to grab block, 2 - placing block
   
-  //while (state == 0)
+  while (state == 0)
     state = follow_line();
     delay(TIME_DELAY);
 
-  /*
-  if (is_block_blue())
-    Serial.println("BLUE");
-  else if (is_block_brown())
-    Serial.println("BROWN");
-  else
-    Serial.println("NEITHER");
-
-  delay(200);
-  */
-  
-  /*
-
   if (state = 1)
   {
+    skip_junction();
+    /*
     if (!grabbed)
       grabbed = grab_block();
     else
       skip_junction();
+      */
     state = 0;
   }
   else if (state = 2)
   {
+    skip_junction();
+    /*
     if (grabbed)
     {
       place_block();
@@ -47,9 +39,10 @@ void loop() {
     }
     else
       skip_junction();
+      */
     state = 0;
   }
   
   
-  */
+  
 }

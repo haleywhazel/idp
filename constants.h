@@ -3,9 +3,9 @@
 
 #ifndef ROBOT_VARS
 #define ROBOT_VARS
-const int DEFAULT_MOTOR_SPEED = 250;
+const int DEFAULT_MOTOR_SPEED = 255;
 const int MOTOR_SPEED_DIFFERENCE = 230;
-const int TIME_DELAY = 25;
+const int TIME_DELAY = 10;
 
 const int BUTTON_PIN = 12;
 const int BLUE_SENSOR_PIN = 10;

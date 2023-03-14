@@ -59,13 +59,18 @@ void wait_until_line_sensor_sum_is(int value)
 void wait_until_all_sensors_have_detected_line()
 {
   bool detected[4] = {false};
-  while (detected[0] && detected[1] && detected[2] && detected[3])
+  int sum = 0;
+  while (sum < 3)
   {
     for (int i = 0; i < 4; ++i)
     {
-      if (line_sensor(i))
+      if (line_sensor(i) && !detected[i])
+      {
         detected[i] = true;
+        ++sum;
+      }
     }
+    delay(TIME_DELAY);
   }
 }
 

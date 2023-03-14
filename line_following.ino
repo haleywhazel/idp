@@ -3,22 +3,28 @@
 void move_from_start()
 {
   move_forwards();
-  wait_until_line_sensor_sum_is(15);//1111
+  wait_until_all_sensors_have_detected_line();
   delay(500);
-  wait_until_line_sensor_sum_is(15);//1111
+  wait_until_all_sensors_have_detected_line();
+  delay(500);
 
-  stop_motors();
-  delay(2000);
-
+  /*
   turn_right();
-  wait_until_line_sensor_on(1);
-  wait_until_line_sensor_on(0);
   wait_until_line_sensor_on(3);
   wait_until_line_sensor_on(2);
-  wait_until_line_sensor_sum_is(0);
+  wait_until_line_sensor_on(1);*/
 
-  move_forwards();
+  turn_left();
+  wait_until_line_sensor_on(0);
+  wait_until_line_sensor_on(1);
+  wait_until_line_sensor_on(2);
+
+
+/*  move_forwards();
   delay(200);
+
+  stop_motors();
+  delay(2000);*/
 }
 
 int follow_line()
@@ -31,16 +37,10 @@ int follow_line()
     adjust_left();
   else if (line_sensor_input == 12)
   {
-    stop_motors();
-    delay(1000);
-    move_forwards();
     return 1;
   }
   else if (line_sensor_input == 3)
   {
-    stop_motors();
-    delay(1000);
-    move_forwards();
     return 2;
   }
   else
@@ -104,6 +104,8 @@ void place_block()
 
 void skip_junction()
 {
+  stop_motors();
+  delay(1000);
   move_forwards();
-  wait_until_line_sensor_sum_is(0);//0000
+  delay(100);
 }
