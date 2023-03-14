@@ -3,12 +3,10 @@
 
 void setup() {
   Serial.begin(9600);
-  AFMS.begin();
+  actuators_setup();
   sensors_setup();
-  Serial.println("Ready");
   wait_for_button_press();
-  Serial.println("Go");
-  //move_from_start();
+  move_from_start();
 }
 
 void loop() {
@@ -18,8 +16,17 @@ void loop() {
   //while (state == 0)
     state = follow_line();
     delay(TIME_DELAY);
-  
 
+  /*
+  if (is_block_blue())
+    Serial.println("BLUE");
+  else if (is_block_brown())
+    Serial.println("BROWN");
+  else
+    Serial.println("NEITHER");
+
+  delay(200);
+  */
   
   /*
 

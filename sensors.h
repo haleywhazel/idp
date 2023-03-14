@@ -2,8 +2,6 @@
 
 void sensors_setup();
 
-void wait_for_button_press();
-
 bool is_block_blue();
 
 //float distance_from_ultrasound(bool front);
@@ -15,8 +13,10 @@ bool is_block_blue();
 // 0011: 3
 // 1000: 8
 // 1111: 15
-int line_sensor();
+int line_sensor_sum();
 
-int line_sensor_readings(int i);
+int line_sensor(int i);
 
-void wait_until_line_sensor_is(int value);
+void wait_until_line_sensor_on(int i);
+
+void wait_until_line_sensor_sum_is(int value);

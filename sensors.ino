@@ -10,53 +10,65 @@ void sensors_setup()
   digitalWrite(VCC, HIGH);
   pinMode(ASTABLE_PIN, OUTPUT);
   
-  /*
-	pinMode(front_ultrasound_trig, OUTPUT);
-	pinMode(right_ultrasound_trig, OUTPUT);
-	pinMode(front_ultrasound_echo, INPUT);
-	pinMode(right_ultrasound_echo, INPUT);
-	pinMode(ultrasonic_vcc, OUTPUT);
+	pinMode(ULTRASOUND_TRIG_PIN, OUTPUT);
+	pinMode(ULTRASOUND_ECHO_PIN, INPUT);
 
-	pinMode(COLOUR_SENSOR_PIN, INPUT);
+	pinMode(BLUE_SENSOR_PIN, INPUT);
   pinMode(BROWN_SENSOR_PIN, INPUT);
-	//pinMode(BUTTON_PIN, HIGH);
 
 	pinMode(VCC, OUTPUT);
-	digitalWrite(VCC, HIGH);*/
-
-	//digitalWrite(button_vcc, HIGH);
-	//digitalWrite(ultrasonic_vcc, HIGH);
-}
-
-void wait_for_button_press()
-{
-	while (digitalRead(BUTTON_PIN) == HIGH)
-		delay(TIME_DELAY);
+	digitalWrite(VCC, HIGH);
+  digitalWrite(ASTABLE_PIN, LOW);
 }
 
 bool is_block_blue()
 {
-  return digitalRead(COLOUR_SENSOR_PIN);
+  return digitalRead(BLUE_SENSOR_PIN);
 }
 
-int line_sensor()
+bool is_block_brown()
 {
-	return digitalRead(LINE_SENSOR_PINS[0]) * 1 +
-	       digitalRead(LINE_SENSOR_PINS[1]) * 2 +
-	       digitalRead(LINE_SENSOR_PINS[2]) * 4 +
-	       digitalRead(LINE_SENSOR_PINS[3]) * 8;
+  return digitalRead(BROWN_SENSOR_PIN);
 }
 
-int line_sensor_readings(int i)
+int line_sensor(int i)
 {
   return digitalRead(LINE_SENSOR_PINS[i]);
 }
 
-void wait_until_line_sensor_is(int value)
+int line_sensor_sum()
 {
-  while (line_sensor() != value)
-    delay(LINE_FOLLOWING_TIME_DELAY);
+	return line_sensor(0) * 1 +
+	       line_sensor(1) * 2 +
+	       line_sensor(2) * 4 +
+	       line_sensor(3) * 8;
 }
+
+void wait_until_line_sensor_on(int i)
+{
+  while (line_sensor(i) != 1)
+      delay(TIME_DELAY);
+}
+
+void wait_until_line_sensor_sum_is(int value)
+{
+  while (line_sensor_sum() != value)
+    delay(TIME_DELAY);
+}
+
+void wait_until_all_sensors_have_detected_line()
+{
+  bool detected[4] = {false};
+  while (detected[0] && detected[1] && detected[2] && detected[3])
+  {
+    for (int i = 0; i < 4; ++i)
+    {
+      if (line_sensor(i))
+        detected[i] = true;
+    }
+  }
+}
+
 /*
 float distance_from_ultrasound(bool front) {
 	int trig;

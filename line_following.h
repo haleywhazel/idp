@@ -2,16 +2,8 @@
 #include <Servo.h>
 
 #include "constants.h"
+#include "actuators.h"
 #include "sensors.h"
-
-void move_forwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_MOTOR_SPEED);
-
-void move_backwards(int LM_speed = DEFAULT_MOTOR_SPEED, int RM_speed = DEFAULT_MOTOR_SPEED);
-
-void stop_motors();
-
-void adjust_left();
-void adjust_right();
 
 // Turn left for a certain duration
 void turn_left();

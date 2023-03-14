@@ -3,18 +3,17 @@
 
 #ifndef ROBOT_VARS
 #define ROBOT_VARS
-const int DEFAULT_MOTOR_SPEED = 200;
-const int DECREASED_MOTOR_SPEED = 150;
-const int TIME_DELAY = 10;
-const int LINE_FOLLOWING_TIME_DELAY = 10;
+const int DEFAULT_MOTOR_SPEED = 250;
+const int MOTOR_SPEED_DIFFERENCE = 230;
+const int TIME_DELAY = 25;
 
 const int BUTTON_PIN = 12;
-const int COLOUR_SENSOR_PIN = 10;
+const int BLUE_SENSOR_PIN = 10;
 const int BROWN_SENSOR_PIN = 8;
 const int LM_PIN = 4;
 const int RM_PIN = 3;
 const int SERVO_PIN = 9;
-const int LINE_SENSOR_PINS[4] = {4, 5, 6, 7};
+const int LINE_SENSOR_PINS[4] = {7, 6, 5, 4};
 const int VCC = 13;
 const int ASTABLE_PIN = 11;
 const int ULTRASOUND_TRIG_PIN = 2;
